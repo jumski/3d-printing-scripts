@@ -1,0 +1,25 @@
+require 'bundler'
+Bundler.require
+
+task :default do
+  layer_height = 0.3
+  max_z = 210.0
+  layers_num = (max_z / layer_height).ceil
+  temp_range = 190..230
+
+  current_z = 0
+  index = 0
+  while current_z < max_z
+    layers_cnt = (rand(layer_height..10) / layer_height).floor
+    temp = (temp_range.first + temp_range.size * rand).ceil
+
+    current_z = (current_z + (layers_cnt * layer_height)).round(2)
+
+    if index == 0
+      puts "{if layer_z <= #{current_z}}M104 S#{temp}"
+    else
+      puts "{elsif layer_z <= #{current_z}}M104 S#{temp}"
+    end
+  end
+  puts "{endif}"
+end
