@@ -23,3 +23,7 @@ task :default do
   end
   puts "{endif}"
 end
+
+task :wood do
+
+end
